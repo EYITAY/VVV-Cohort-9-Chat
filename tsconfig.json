@@ -17,6 +17,22 @@
     "jsx": "react-jsx",
     "types": ["@types/node"]
   },
-  "include": ["api", "index.tsx", "types.ts", "services", "components", "vite.config.ts"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+
+  "include": [
+    "api",
+    "index.tsx",
+    "types.ts",
+    "services",
+    "components"
+  ],
+
+  "exclude": [
+    "node_modules",
+    "dist",
+    "vite.config.ts"
+  ],
+
+  "references": [
+    { "path": "./tsconfig.node.json" }
+  ]
 }
