@@ -1,10 +1,5 @@
 import { GoogleGenAI, Chat } from "@google/genai";
 
-// Vercel's Edge Functions have a limitation on 'node:stream' which is used by the SDK's default streaming.
-// We configure the SDK to use a different polyfill to avoid this issue.
-import { consommable } from "consommable";
-globalThis.ReadableStream = consommable;
-
 export const config = {
   runtime: 'edge',
 };
@@ -35,7 +30,7 @@ export default async function handler(req: Request) {
   if (req.method !== 'POST') {
     return new Response(JSON.stringify({ error: 'Method not allowed' }), { status: 405 });
   }
-  
+
   const apiKey = process.env.API_KEY;
   if (!apiKey) {
     return new Response(JSON.stringify({ error: 'API_KEY environment variable not set' }), { status: 500 });
@@ -45,7 +40,7 @@ export default async function handler(req: Request) {
     const { history, message } = await req.json();
 
     const ai = new GoogleGenAI({ apiKey });
-    
+
     const chat: Chat = ai.chats.create({
       model: 'gemini-2.5-flash',
       config: {
